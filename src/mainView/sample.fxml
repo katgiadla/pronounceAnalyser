@@ -11,18 +11,13 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <MenuButton fx:id="MenuWord" layoutX="247.0" layoutY="37.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="193.0" text="Word">
-                          <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
-                          </items>
-                        </MenuButton>
                         <Label layoutX="14.0" layoutY="42.0" text="Choose word to check:" />
                         <Label layoutX="14.0" layoutY="98.0" text="Choose file with pronounce:" />
                         <TextField fx:id="FileField" layoutX="247.0" layoutY="93.0" prefHeight="31.0" prefWidth="333.0" />
                         <Button fx:id="BrowseFile" layoutX="580.0" layoutY="93.0" mnemonicParsing="false" onAction="#chooseFile" text="Browse" />
                         <Button layoutX="276.0" layoutY="155.0" mnemonicParsing="false" onAction="#startAnalyse" text="Check pronounce" />
                         <TextArea fx:id="ResultTextArea" layoutX="38.0" layoutY="214.0" prefHeight="164.0" prefWidth="613.0" />
+                        <ComboBox fx:id="MenuWord" layoutX="247.0" layoutY="38.0" prefWidth="150.0" promptText="mainView.WORD" />
                      </children>
                   </AnchorPane>
             </content>

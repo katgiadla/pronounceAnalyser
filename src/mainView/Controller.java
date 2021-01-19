@@ -1,20 +1,19 @@
 package mainView;
 
-import com.sun.xml.internal.bind.v2.TODO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class Controller {
 
     @FXML
-    private MenuButton MenuWord;
+    private ComboBox<WORD> MenuWord;
 
     @FXML
     private TextField FileField;
@@ -26,7 +25,9 @@ public class Controller {
     private TextArea ResultTextArea;
 
     @FXML
-    void initialize() { }
+    void initialize() {
+        MenuWord.getItems().setAll(WORD.values());
+    }
 
     private File chosenFile;
 
