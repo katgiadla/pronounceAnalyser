@@ -1,5 +1,6 @@
 package mainView;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,14 +28,24 @@ public class Controller {
     @FXML
     void initialize() { }
 
-    public void chooseFile(ActionEvent event) {
-        FileChooser fc = new FileChooser();
-        File chosenFile = fc.showOpenDialog(null);
+    private File chosenFile;
 
-        if (chosenFile != null) {
-            FileField.setText(chosenFile.getAbsolutePath());
-        } else {
-            System.out.println("Where is file?");
-        }
+    public void chooseFile(ActionEvent event) {
+
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("WAVE File", "*.wav")
+        );
+
+        chosenFile = fc.showOpenDialog(null);
+
+        if (chosenFile != null) { FileField.setText(chosenFile.getAbsolutePath()); }
+        else { System.out.println("Where is file?"); }
+
+        //TODO Wysłanie pliku do analizy
+    }
+
+    public void startAnalyse(ActionEvent event) {
+        //TODO Uruchomienie analizy
     }
 }
