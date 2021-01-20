@@ -9,6 +9,14 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class Controller {
 
@@ -31,6 +39,9 @@ public class Controller {
 
     private File chosenFile;
 
+    private String pathnameInput;
+    private String pathnameOutput;
+
     public void chooseFile(ActionEvent event) {
 
         FileChooser fc = new FileChooser();
@@ -46,11 +57,119 @@ public class Controller {
         //TODO Wysłanie pliku do analizy
     }
 
+    private static ArrayList<File> createListOfFile(String pathname) throws IOException {
+        List<File> contentOfFolder = null;
+        ArrayList<File> filesFromFolder = null;
+
+        try {
+            contentOfFolder = Files.walk(Paths.get(pathname))
+                    .filter(Files::isRegularFile)
+                    .map(Path::toFile)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        filesFromFolder = new ArrayList<File>(contentOfFolder);
+
+        return filesFromFolder;
+    }
+
+//    private void copyToFile(String pathnameFile, WORD selectedWord){
+//        pathnameFile = pathnameInput.substring(0, 2) + "/" + pathnameInput.substring(2);
+//        File source = new File("H:\\work-temp\\file");
+//        File dest = new File("H:\\work-temp\\file2");
+//        try {
+//            FileUtils.copyDirectory(source, dest);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    };
+
+    private void chooseWord(WORD word){
+        switch (word) {
+            case ADER: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/Ader/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/Ader/Ader";
+                break;
+            }
+            case ODER: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/oder/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/oder/oder";
+                break;
+            }
+            case KIEPE: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/Kiepe/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/Kiepe/Kiepe";
+                break;
+            }
+            case KIPPE: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/Kippe/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/Kippe/Kippe";
+                break;
+            }
+            case BETEN: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/beten/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/beten/beten";
+                break;
+            }
+            case BETTEN: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/betten/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/betten/betten";
+                break;
+            }
+            case KÖCHE: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/Köche/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/Köche/Köche";
+                break;
+            }
+            case KÜCHE: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/Küche/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/Küche/Küche";
+                break;
+            }
+            case SCHERE: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/Schere/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/Schere/Schere";
+                break;
+            }
+            case SCHÄRE: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/Schäre/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/Schäre/Schäre";
+                break;
+            }
+            case UMIFAHREN: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/umIfahren/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/umIfahren/UmIfaren";
+                break;
+            }
+            case UMFAHREN: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/umfahren/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/umfahren/umfaren";
+                break;
+            }
+            case RÖSTEN: {
+                pathnameInput = "C://Users/Kasia/Music/Engineers thesis/rösten/wavFiles";
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/rösten/rösten";
+                break;
+            }
+            case RÜSTEN: {
+                pathnameOutput = "C://Users/Kasia/Pictures/Engineers thesis/rüsten/rüsten";
+                pathnameInput = "\"C://Users/Kasia/Music/Engineers thesis/rüsten/wavFiles";
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
     public void startAnalyse(ActionEvent event) {
 
         WORD selectedItem = MenuWord.getSelectionModel().getSelectedItem();
+        chooseWord(selectedItem);
 
-        //TODO Wybór odpowiedniego słowa
+        ResultTextArea.setText(pathnameInput);
         //TODO Uruchomienie analizy
     }
 }
