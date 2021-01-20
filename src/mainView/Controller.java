@@ -8,15 +8,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 public class Controller {
 
@@ -53,8 +51,6 @@ public class Controller {
 
         if (chosenFile != null) { FileField.setText(chosenFile.getAbsolutePath()); }
         else { System.out.println("Where is file?"); }
-
-        //TODO Wysłanie pliku do analizy
     }
 
     private static ArrayList<File> createListOfFile(String pathname) throws IOException {
@@ -75,16 +71,20 @@ public class Controller {
         return filesFromFolder;
     }
 
-//    private void copyToFile(String pathnameFile, WORD selectedWord){
-//        pathnameFile = pathnameInput.substring(0, 2) + "/" + pathnameInput.substring(2);
-//        File source = new File("H:\\work-temp\\file");
-//        File dest = new File("H:\\work-temp\\file2");
-//        try {
-//            FileUtils.copyDirectory(source, dest);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    };
+    private void copyToFile(String pathnameFile, WORD selectedWord) throws IOException {
+
+        FileInputStream fileInputStream = new FileInputStream(pathnameFile);
+        FileOutputStream fileOutputStream = new FileOutputStream(
+                pathnameInput + "/new.wav");
+
+        int bufferSize;
+        byte[] bufffer = new byte[512];
+        while ((bufferSize = fileInputStream.read(bufffer)) > 0) {
+            fileOutputStream.write(bufffer, 0, bufferSize);
+        }
+        fileInputStream.close();
+        fileOutputStream.close();
+    };
 
     private void chooseWord(WORD word){
         switch (word) {
@@ -164,10 +164,12 @@ public class Controller {
         }
     }
 
-    public void startAnalyse(ActionEvent event) {
+    public void startAnalyse(ActionEvent event) throws IOException {
 
         WORD selectedItem = MenuWord.getSelectionModel().getSelectedItem();
         chooseWord(selectedItem);
+
+        copyToFile(chosenFile.getAbsolutePath(), selectedItem);
 
         ResultTextArea.setText(pathnameInput);
         //TODO Uruchomienie analizy
